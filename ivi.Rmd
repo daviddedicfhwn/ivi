@@ -1,0 +1,52 @@
+---
+title: "ivi"
+output: html_document
+date: "2022-12-15"
+---
+# Einfügen von Librarys
+```{r}
+library(dplyr)
+library(tidyverse)
+library(data.table)
+library(readr)
+library(plotly)
+
+```
+
+# CSV einlesen und testen welche schneller ist?
+
+```{r}
+# Messen der Zeit für fread()
+fread_time <- system.time({
+  data1 <- fread("df_movie_ratings.csv")
+  
+})[1]
+
+# Messen der Zeit für read_csv()
+read_csv_time <- system.time({
+  data2 <- read_csv("df_movie_ratings.csv")
+})[1]
+
+# Vergleich
+if (fread_time < read_csv_time) {
+  print("fread() ist schneller.")
+} else {
+  print("read_csv() ist schneller.")
+}
+```
+## Entscheidung
+
+```{r}
+data <- data1
+```
+
+```{r}
+install.packages("plotly")
+```
+
+```{r}
+plot_ly(data,x = 'rating', mode = "markers")
+show_plotly()
+```
+
+
